@@ -156,13 +156,20 @@ def group_tweets_by_state(tweets):
     >>> tweet_string(ca_tweets[0])
     '"welcome to san francisco" @ (38, -122)'
     """
+    #initialize dictionary of tweets by state
     tweets_by_state = {}
+    #us_centers is a dictionary that holds key-value pairs of states to positions
     us_centers = {n: find_center(s) for n, s in us_states.items()}
-    
-    "*** YOUR CODE HERE ***"
-
-
-
+    #add keys of empty lists for each state code to tweets_by_state
+    for stateCode in us_states.keys():
+            tweets_by_state[stateCode] = []
+    #iterate through each tweet in the input parameter 'tweets'
+    for tweet in tweets:
+            #record the closest state for this tweet, using find_closest_state function
+            tweet_state = find_closest_state(tweet, us_centers)
+            #add this tweet as an element in the list of values for the state code's key
+            tweets_by_state[tweet_state] += [tweet]
+    #return dictionary holding key-value pairs for state codes and associated tweets
     return tweets_by_state
 
 def average_sentiments(tweets_by_state):
