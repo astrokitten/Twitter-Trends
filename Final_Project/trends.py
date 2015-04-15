@@ -81,7 +81,17 @@ def analyze_tweet_sentiment(tweet):
     """
     "*** YOUR CODE HERE ***"
 
-    return average_tweet
+    sentiment = 0
+    count = 0
+    aList = extract_words(tweet)
+    for i in aList:
+        if has_sentiment(i):
+            sentiment += word_sentiments(i)
+            count += 1
+    if count == 0:
+        return make_sentiment(None)
+    else:
+        return sentiment
 
 def find_closest_state(tweet, state_centers):
     """Return the name of the state closest to the given tweet's location.
