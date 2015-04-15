@@ -120,11 +120,27 @@ def find_closest_state(tweet, state_centers):
     >>> find_closest_state(lbg, us_centers)
     'PA'
     """
-    "*** YOUR CODE HERE ***"
-
-  
-            
-    return stateClosest   
+    #retrieve the latitude & longitude for the tweet's location
+    coordinates = tweet_location(tweet)
+    #create empty dictionary that will hold tweet-to-state-center distances
+    stateDistances = {}
+    #iterate through each value of state_centers (given as input)
+    for stateCode in state_centers.keys():
+            #set new dictionary key-value pair equal to geo distance between locs
+            stateDistances[stateCode] = geo_distance(coordinates, state_centers[stateCode])
+    #initialize very large minDistance number to ensure it gets replaced
+    minDistance = 50000
+    #empty minStateCode (for now)
+    minStateCode = ''
+    #iterate through new dictionary keys
+    for key in stateDistances:
+            #if the value is less than current minDistance, replace minDistance
+            if stateDistances[key] < minDistance:
+                    minDistance = stateDistances[key]
+                    #also set minStateCode to this key, to keep track of closest state
+                    minStateCode = key
+    #return the stateCode of the state whose center is closest to the tweet
+    return minStateCode
 
 def group_tweets_by_state(tweets):
     """Return a dictionary that aggregates tweets by their nearest state center.
