@@ -411,4 +411,8 @@ def print_sentiment(text='Are you virtuous or verminous?'):
 		s = get_word_sentiment(word)
 		if has_sentiment(s):
 			print(layout.format(word, sentiment_value(s)))
-
+			
+#needed for doctests to work
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
