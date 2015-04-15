@@ -29,19 +29,35 @@ def extract_words(text):
     i = 0
     #indefinite loop to iterate through text characters
     while len(text) > 0:
+        #if the character is alphabetic
         if 'a' <= text[i] <= 'z' or 'A' <= text[i] <= 'Z':
+            #append the character to the temporary string
             temp += str(text[i])
+            #increment index to continue within the unchanged string
             i += 1
+        #else (the text contains a strange character)
         else:
+            #use list slicing to chop off our temp string and this 1 invalid character
             text = text[(len(temp) + 1):]
+            '''if our temp isn't an empty string (this happens with multiple
+                consecutive invalid characters):'''
             if len(temp) != 0:
+                #append this string to our list of words extracted from text
                 wordList += [str(temp)]
+            #reset temp to an empty string
             temp = ''
+            #reset index, because we made text smaller via list slicing
             i = 0
+        #if the 'else' statement above didn't apply, check for equal length
+            #to avoid infinite looping
         if len(temp) == len(text):
+            #if temp isn't empty
             if len(temp) != 0:
+                #append this string to wordList as before
                 wordList += [str(temp)]
+            #we're done iterating through the list, so break from loop
             break
+    #return all of the valid words that were found!
     return wordList
 
 def analyze_tweet_sentiment(tweet):
