@@ -79,19 +79,25 @@ def analyze_tweet_sentiment(tweet):
     False
     
     """
-    "*** YOUR CODE HERE ***"
-
-    sentiment = 0
+	#initialize variables sentiment and count, used to calculate avg. sentiment
+    sentiment = 0.0
     count = 0
+	#call extract_words to create list of all valid words contained in tweet
     aList = extract_words(tweet)
+	#iterate through each word in the list of valid alphabetic words
     for i in aList:
-        if has_sentiment(i):
-            sentiment += word_sentiments(i)
+		#affirm the word has a value in sentiment dictionary
+        if has_sentiment(get_word_sentiment(i)):
+			#increase total sentiment by the value of this word
+            sentiment += get_word_sentiment(i)
+			#increment count (only if word contains a sentiment value)
             count += 1
+	#if no words had sentiment value, return None
     if count == 0:
         return make_sentiment(None)
+	#otherwise return the floating point average of total sentiment over count
     else:
-        return sentiment
+        return float(sentiment/count)
 
 def find_closest_state(tweet, state_centers):
     """Return the name of the state closest to the given tweet's location.
